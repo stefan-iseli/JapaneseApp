@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "169646242377",
+    "firebase_url": "https://myplayground-ae945.firebaseio.com",
+    "project_id": "myplayground-ae945",
+    "storage_bucket": "myplayground-ae945.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169646242377:android:722e6c2990ab3d5a671d98",
+        "android_client_info": {
+          "package_name": "com.example.japaneseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169646242377-8fruudovrjlh9vrkpk890ue6k9al7gvn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.japaneseapp",
+            "certificate_hash": "0dcdd80c8e262fb9154d19854cfb8020c25864f4"
+          }
+        },
+        {
+          "client_id": "169646242377-0uujkvbvcf602lqjsusi657ur5n5grbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXh60LhsYB0QRoHsKFnIEjXYHEGSlfhHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169646242377-0uujkvbvcf602lqjsusi657ur5n5grbk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "169646242377-3av80knlr8masriqhfhq5sdkpm7t6bu6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.digitalmediafactory.MyPlaylist"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169646242377:android:36e410849a28fb33671d98",
+        "android_client_info": {
+          "package_name": "com.example.startup_namer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169646242377-e1g8fsjo7kb3g3hd7j54kpm9m9ri3r0q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.startup_namer",
+            "certificate_hash": "76a61dccca7584cfd38c3fbc4f64dafe19390fca"
+          }
+        },
+        {
+          "client_id": "169646242377-0uujkvbvcf602lqjsusi657ur5n5grbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXh60LhsYB0QRoHsKFnIEjXYHEGSlfhHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169646242377-0uujkvbvcf602lqjsusi657ur5n5grbk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "169646242377-3av80knlr8masriqhfhq5sdkpm7t6bu6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ch.digitalmediafactory.MyPlaylist"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
