@@ -23,6 +23,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 */
 // own flutter code files to be included
 import 'package:japaneseapp/login_page.dart';
+import 'package:japaneseapp/error_screen.dart';
 
 void main() {
   print('main: BoJ - initializing Firebase');
@@ -38,6 +39,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _initialized = false;
   bool _error = false;
+  String _errorMessage;
 
   void initializeFlutterFire() async {
     try {
@@ -48,6 +50,7 @@ class _MyAppState extends State<MyApp> {
     } catch (e) {
       setState(() {
         _error = true;
+        _errorMessage = e;
       });
     }
   }
@@ -61,14 +64,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (_error) {
-      return Container(
-          alignment: Alignment.center,
-          child: new Text('Initialize Firebase: Something went wrong'));
+      return ErrorScreen(_errorMessage);
     }
     if (!_initialized) {
-      return Container(
-          alignment: Alignment.center,
-          child: new Text('Initialize Firebase: connecting ...'));
+      return ErrorScreen('Connecting to Firestore ...');
     }
     return LoginPage();
   }
