@@ -1,11 +1,9 @@
 // import flutter packages (pub.dev for a list of available extensions)
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 // own flutter code files to be inclueded
-import 'package:japaneseapp/sign_in.dart';
-import 'package:japaneseapp/first_screen.dart';
-import 'package:japaneseapp/error_screen.dart';
+import 'package:japaneseapp/sign_in_google.dart';
+import 'package:japaneseapp/get_user_credentials.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,33 +13,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'japaneseapp',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.lightBlue,
-        accentColor: Colors.blueAccent,
-        textTheme: GoogleFonts.notoSansTextTheme((Theme.of(context).textTheme)),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage('assets/JapaneseBackground.PNG'),
-            fit: BoxFit.cover,
-          )),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _emailSignInButton(),
-                _googleSignInButton(),
-                _signInIconButton(),
-                _signUpButton(),
-              ],
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage('assets/JapaneseBackground.PNG'),
+          fit: BoxFit.cover,
+        )),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _emailSignInButton(),
+              _googleSignInButton(),
+              _signInIconButton(),
+              _signUpButton(),
+            ],
           ),
         ),
       ),
@@ -54,10 +42,16 @@ class _LoginPageState extends State<LoginPage> {
       child: OutlineButton(
         splashColor: Colors.grey,
         onPressed: () {
-          signInService.signInWithGoogle().then(
+          userCredentials.getUserCredentials(context).then(
             (result) {
               if (result != null) {
-                return FirstScreen();
+                //return FirstScreen();
+                print('Sign in was successful');
+                return Column(
+                  children: [new Text('Sign in was successful')],
+                );
+              } else {
+                print('_emailSignInButton: null return');
               }
             },
           );
@@ -103,7 +97,11 @@ class _LoginPageState extends State<LoginPage> {
           signInService.signInWithGoogle().then(
             (result) {
               if (result != null) {
-                return FirstScreen();
+                //return FirstScreen();
+                print('Google Sign In was successful');
+                return Container(
+                  child: new Text('Google Sign is was successful'),
+                );
               }
             },
           );
