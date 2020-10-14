@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // own flutter code files to be inclueded
-import 'package:japaneseapp/sign_in_google.dart';
+import 'package:japaneseapp/sign_in_firebase.dart';
 import 'package:japaneseapp/get_user_credentials.dart';
 
 class LoginPage extends StatefulWidget {
