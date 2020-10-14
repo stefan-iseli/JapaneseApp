@@ -23,7 +23,7 @@ class _PhrasesState extends State<Phrases> {
         title: new Text(
           "ステファンの日本語",
           style: GoogleFonts.tangerine(
-            fontSize: 36,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),

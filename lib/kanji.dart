@@ -23,7 +23,7 @@ class _KanjiState extends State<Kanji> {
       appBar: AppBar(
         title: new Text(
           "ステファンの日本語",
-          style: TextStyle(fontSize: 36, color: Colors.white),
+          style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         centerTitle: true,
         actions: <Widget>[

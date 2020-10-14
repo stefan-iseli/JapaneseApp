@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:japaneseapp/sign_in_firebase.dart';
+import 'package:japaneseapp/kanji.dart';
 
 class UserCredentials {
   UserCredentials();
@@ -88,11 +89,20 @@ class UserCredentials {
                               textColor: Colors.white,
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  print('UserId input was $_inputUser');
-                                  print('UserPW input was $_inputPW');
-                                  signInService.signInWithEmail(
-                                      _inputUser, _inputPW);
-                                  Navigator.pop(context);
+                                  Future<String> _currentUser = signInService
+                                      .signInWithEmail(_inputUser, _inputPW);
+                                  if (_currentUser != null) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Kanji(),
+                                      ),
+                                    );
+                                  } else {
+                                    print(
+                                        'getUserCredentials: sign in returned null');
+                                    return null;
+                                  }
                                 }
                               }),
                         ),

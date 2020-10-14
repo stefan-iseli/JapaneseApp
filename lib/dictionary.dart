@@ -23,7 +23,7 @@ class _DictionaryState extends State<Dictionary> {
         title: new Text(
           "ステファンの日本語",
           style: TextStyle(
-            fontSize: 36,
+            fontSize: 20,
             color: Colors.white,
           ),
         ),
