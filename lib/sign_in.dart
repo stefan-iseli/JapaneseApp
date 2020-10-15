@@ -2,6 +2,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+//include own made flutter code files
+import 'package:japaneseapp/global.dart' as global;
+
 class SignInService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -55,22 +58,18 @@ class SignInService {
 // Sign in and sign out with own ID/PW (email address and PW)
 // UserId and Password input are
 //
-  Future<String> signInWithEmail(String _inUser, String _inPW) async {
-    print('UserId / PW is $_inUser/$_inPW');
+  Future<bool> signInWithEmail(String _inUser, String _inPW) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _inUser, password: _inPW);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-        return null;
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-        return null;
+      if (e != null) {
+        global.myErrorMessage = e.toString();
+        return false;
       }
     }
-    final User currentUser = _auth.currentUser;
-    return '$currentUser';
+    global.myUser = FirebaseAuth.instance.currentUser;
+    return true;
   }
 
   Future<void> signOutEmail() async {}

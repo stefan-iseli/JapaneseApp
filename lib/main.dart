@@ -48,6 +48,16 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
+        appBar: AppBar(
+          title: new Text(
+            "ステファンの日本語",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+        ),
         body: FutureBuilder(
           future: _initialization,
           builder: (context, snapshot) {
@@ -56,7 +66,7 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  new Text('Firestore initialization error'),
+                  new Text('Error: Could not initiate database Firestore'),
                   new Text('please try again later'),
                 ],
               );
@@ -68,10 +78,11 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  new Text('connecting to Firestore'),
+                  new Text('Please have some patience'),
+                  new Text('connecting to database Firestore ...'),
                   new CircularProgressIndicator(
                     backgroundColor: Colors.green,
-                  )
+                  ),
                 ],
               );
             }

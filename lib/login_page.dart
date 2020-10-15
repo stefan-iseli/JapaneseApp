@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 
 // own flutter code files to be inclueded
-import 'package:japaneseapp/sign_in_firebase.dart';
-import 'package:japaneseapp/get_user_credentials.dart';
+import 'package:japaneseapp/sign_in.dart';
+import 'package:japaneseapp/user_credentials.dart';
+import 'package:japaneseapp/global.dart' as global;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -42,18 +43,15 @@ class _LoginPageState extends State<LoginPage> {
       child: OutlineButton(
         splashColor: Colors.grey,
         onPressed: () {
-          userCredentials.getUserCredentials(context).then(
-            (result) {
-              if (result != null) {
-                //return FirstScreen();
-                print('Sign in was successful');
-                return Column(
-                  children: [new Text('Sign in was successful')],
-                );
-              } else {
-                print('_emailSignInButton: null return');
-              }
-            },
+          setState(() {
+            global.myLoginMethod = 'Email';
+          });
+          print('_emailSignInButton: Pushing UserCredentials');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UserCredentials(),
+            ),
           );
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
