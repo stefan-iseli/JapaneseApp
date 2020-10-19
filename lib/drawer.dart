@@ -1,11 +1,15 @@
 // importing google platform packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:japaneseapp/email_sign_in.dart';
+import 'package:japaneseapp/google_sign_in.dart';
 
 //importing own library
 import 'package:japaneseapp/kanji.dart';
 import 'package:japaneseapp/dictionary.dart';
 import 'package:japaneseapp/phrases.dart';
+import 'package:japaneseapp/global.dart' as global;
+import 'package:japaneseapp/login_page.dart';
 
 Widget showMenuDrawer(BuildContext context) {
   return Drawer(
@@ -121,9 +125,42 @@ Widget showMenuDrawer(BuildContext context) {
         ),
         ListTile(
           leading: Icon(Icons.exit_to_app),
-          title: Text('Exit - Exit to login page'),
+          title: Text('Sign-out'),
           onTap: () {
-            print('exit exit exit pressed');
+            print('myLoginMethod = ' + global.myLoginMethod);
+            switch (global.myLoginMethod) {
+              case "Google":
+                {
+                  googleSignInService.signOutGoogle().then((result) {
+                    if (result == true) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      );
+                    }
+                  });
+                  break;
+                }
+              case "Email":
+                {
+                  emailSignInService.signOutEmail().then((result) {
+                    if (result == null) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      );
+                    } else {
+                      print('Exit Email: Error $result');
+                    }
+                  });
+                  break;
+                }
+                break;
+            }
           },
         ),
       ],

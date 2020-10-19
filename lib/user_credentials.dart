@@ -1,7 +1,7 @@
 // import standard packages for flutter (pub.dev)
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:japaneseapp/sign_in.dart';
+import 'package:japaneseapp/email_sign_in.dart';
 
 // include own flutter code files
 import 'package:japaneseapp/global.dart' as global;
@@ -17,6 +17,32 @@ class _UserCredentials extends State<UserCredentials> {
   final _formKey = GlobalKey<FormState>(); //key for input ID/PW
   String _inputUser;
   String _inputPW;
+
+  Future<void> signInHandler() async {
+    print('signInHandler: $_inputUser/$_inputPW');
+    emailSignInService.signInWithEmail(_inputUser, _inputPW).then(
+      (result) {
+        if (result != null) {
+          setState(
+            () {
+              global.myLoginMethod = 'Email';
+            },
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Kanji(),
+            ),
+          );
+        } else {
+          print('Google sign-in failed');
+          return Container(
+            child: new Text('Google sign-in failed'),
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +83,7 @@ class _UserCredentials extends State<UserCredentials> {
                         ),
                         validator: (String value) {
                           if (value.isEmpty) {
-                            return ('please enter your user id');
+                            return ('Error: Missing User-Id (email)');
                           } else {
                             setState(() {
                               _inputUser = value.toLowerCase().trim();
@@ -67,38 +93,37 @@ class _UserCredentials extends State<UserCredentials> {
                         },
                       ),
                       new TextFormField(
-                        obscureText: (global.myVisibility) ? false : true,
-                        obscuringCharacter: '*',
-                        decoration: InputDecoration(
-                          prefixIcon: IconButton(
-                            icon: (global.myVisibility)
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
-                            onPressed: () => {
-                              setState(
-                                () {
-                                  (global.myVisibility)
-                                      ? global.myVisibility = false
-                                      : global.myVisibility = true;
-                                },
-                              ),
-                            },
+                          obscureText: (global.myVisibility) ? false : true,
+                          obscuringCharacter: '*',
+                          decoration: InputDecoration(
+                            prefixIcon: IconButton(
+                              icon: (global.myVisibility)
+                                  ? Icon(Icons.visibility)
+                                  : Icon(Icons.visibility_off),
+                              onPressed: () => {
+                                setState(
+                                  () {
+                                    (global.myVisibility)
+                                        ? global.myVisibility = false
+                                        : global.myVisibility = true;
+                                  },
+                                ),
+                              },
+                            ),
+                            labelText: 'Password',
+                            border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0)),
+                                gapPadding: 4.0),
                           ),
-                          labelText: 'Password',
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4.0)),
-                              gapPadding: 4.0),
-                        ),
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return ('please enter your password');
-                          } else {
-                            _inputPW = value.trim();
+                          validator: (String value) {
+                            setState(
+                              () {
+                                _inputPW = value.trim();
+                              },
+                            );
                             return null;
-                          }
-                        },
-                      ),
+                          }),
                       new Container(
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 0.0),
@@ -115,30 +140,11 @@ class _UserCredentials extends State<UserCredentials> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 print(
-                                    'userCredential: calling signInWithEmail');
-                                signInService.signInWithEmail(
-                                    _inputUser, _inputPW);
-                                if (global.myUser != null) {
-                                  print('global.user ' + global.myUser.email);
-                                  print(global.myUser.toString());
-                                  print('login user $_inputUser');
-                                  if (global.myUser.email == _inputUser) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Kanji(),
-                                      ),
-                                    );
-                                  } else {
-                                    print(
-                                        'global.user is not equal to login user');
-                                    return ('Error: User-Id or PW incorrect');
-                                  }
-                                } else {
-                                  print(
-                                      'getUserCredentials: sign in returned null');
-                                  return ('Error: User-Id or PW incorrect');
-                                }
+                                    '_UserCredentials = $_inputUser/$_inputPW');
+                                print(
+                                    '_UserCredentials: calling signInHandler');
+                                signInHandler();
+                                print('_UserCredentials: signInHandler return');
                               }
                             },
                           ),
@@ -164,6 +170,11 @@ class _UserCredentials extends State<UserCredentials> {
                                   textColor: Colors.white,
                                   onPressed: () {
                                     print('userCredentials: new PW requested');
+                                    if (_formKey.currentState.validate()) {
+                                      print(
+                                          'userCredentials: Request PW validate');
+                                      print('User = $_inputUser');
+                                    }
                                   },
                                 ),
                               ),

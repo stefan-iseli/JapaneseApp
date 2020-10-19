@@ -1,8 +1,9 @@
 // import flutter packages (pub.dev for a list of available extensions)
 import 'package:flutter/material.dart';
+import 'package:japaneseapp/kanji.dart';
 
 // own flutter code files to be inclueded
-import 'package:japaneseapp/sign_in.dart';
+import 'package:japaneseapp/google_sign_in.dart';
 import 'package:japaneseapp/user_credentials.dart';
 import 'package:japaneseapp/global.dart' as global;
 
@@ -46,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
           setState(() {
             global.myLoginMethod = 'Email';
           });
-          print('_emailSignInButton: Pushing UserCredentials');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -92,13 +92,24 @@ class _LoginPageState extends State<LoginPage> {
       child: OutlineButton(
         splashColor: Colors.grey,
         onPressed: () {
-          signInService.signInWithGoogle().then(
+          googleSignInService.signInWithGoogle().then(
             (result) {
               if (result != null) {
-                //return FirstScreen();
-                print('Google Sign In was successful');
+                setState(
+                  () {
+                    global.myLoginMethod = 'Google';
+                  },
+                );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Kanji(),
+                  ),
+                );
+              } else {
+                print('Google sign-in failed');
                 return Container(
-                  child: new Text('Google Sign is was successful'),
+                  child: new Text('Google sign-in failed'),
                 );
               }
             },
