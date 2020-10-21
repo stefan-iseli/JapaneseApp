@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,21 +32,67 @@ class Profile extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
       child: Column(
         children: <Widget>[
+          new Container(
+            child: new Text('Profile/Account',
+                style: TextStyle(color: Colors.blue, fontSize: 24)),
+            alignment: Alignment.center,
+          ),
+          new Divider(
+            indent: 10.0,
+            endIndent: 10.0,
+            thickness: 2.0,
+            color: Colors.blue,
+          ),
           new ListTile(
             leading: Icon(Icons.email_outlined),
-            title: new Text('Email/Id:'),
-            trailing: new Text(_user.email),
+            title: new Text(_user.email),
           ),
           new ListTile(
-            leading: Icon(Icons.verified),
-            title: new Text('Email verified:'),
-            trailing:
-                new Text((_user.emailVerified) ? 'verified' : 'not verified'),
+            leading: Icon(Icons.fact_check),
+            title: new Text((_user.emailVerified)
+                ? 'Email is verified'
+                : 'Email is not verified'),
           ),
           new ListTile(
-            leading: Icon(Icons.verified),
-            title: new Text('Name:'),
-            trailing: new Text(_user.displayName),
+            leading: Icon(Icons.tag_faces),
+            title: new Text(_user.displayName),
+          ),
+          (_user.phoneNumber != null)
+              ? new ListTile(
+                  leading: Icon(Icons.contact_phone),
+                  title: new Text(_user.phoneNumber))
+              : new Container(),
+          new ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 20,
+              backgroundImage: NetworkImage(
+                _user.photoURL,
+              ),
+            ),
+            title: new Text(_user.photoURL),
+          ),
+          new Divider(
+            indent: 10.0,
+            endIndent: 10.0,
+            thickness: 2.0,
+            color: Colors.blue,
+          ),
+          new ListTile(
+            leading: Icon(Icons.access_time),
+            title: new Text(_user.metadata.lastSignInTime.toString()),
+            trailing: new Text('last'),
+          ),
+          new ListTile(
+            leading: Icon(Icons.access_time),
+            title: new Text(_user.metadata.creationTime.toString()),
+            trailing: new Text('since'),
+          ),
+          new Divider(
+            indent: 10.0,
+            endIndent: 10.0,
+            thickness: 3.0,
+            color: Colors.blue,
           ),
         ],
       ),
