@@ -48,16 +48,16 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: new Text(
-            "ステファンの日本語",
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-            ),
-          ),
-          centerTitle: true,
-        ),
+//        appBar: AppBar(
+//          title: new Text(
+//            "ステファンの日本語",
+//            style: TextStyle(
+//              fontSize: 20,
+//              color: Colors.white,
+//            ),
+//          ),
+//          centerTitle: true,
+//        ),
         body: FutureBuilder(
           future: _initialization,
           builder: (context, snapshot) {
@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   new Text('Please have some patience'),
-                  new Text('connecting to database Firestore ...'),
+                  new Text('connecting to Firestore ...'),
                   new CircularProgressIndicator(
                     backgroundColor: Colors.green,
                   ),

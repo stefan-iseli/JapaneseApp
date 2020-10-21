@@ -6,6 +6,8 @@ import 'package:japaneseapp/kanji.dart';
 import 'package:japaneseapp/google_sign_in.dart';
 import 'package:japaneseapp/user_credentials.dart';
 import 'package:japaneseapp/global.dart' as global;
+import 'package:japaneseapp/show_dialog.dart';
+import 'package:japaneseapp/sign_up.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -29,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               _emailSignInButton(),
               _googleSignInButton(),
-              _signInIconButton(),
               _signUpButton(),
             ],
           ),
@@ -66,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Icon(
                 Icons.email_outlined,
-                color: Colors.blue[200],
+                color: Colors.white,
                 size: 40.0,
               ),
               Padding(
@@ -75,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
                   'Sign in with your Id',
                   style: TextStyle(
                     fontSize: 20,
-                    color: Colors.blue[200],
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               )
@@ -107,10 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 );
               } else {
-                print('Google sign-in failed');
-                return Container(
-                  child: new Text('Google sign-in failed'),
-                );
+                showMyDialog(context, 'Google sign-in', 'Sign-in failed',
+                    'try again or try another option');
               }
             },
           );
@@ -143,44 +143,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _signInIconButton() {
-    return Container(
-      padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 25.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'or sign-in with: ',
-            style: TextStyle(color: Colors.blue[200], fontSize: 20),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlatButton(
-                onPressed: () => {print('Twitter sign-in under construction')},
-                child: Image(
-                  image: AssetImage("assets/TwitterLogo.png"),
-                  //color: Colors.blue,
-                  height: 60,
-                ),
-              ),
-              FlatButton(
-                onPressed: () => print('Facebook sign-in under construction'),
-                child: Image(
-                  image: AssetImage("assets/FaceBookLogo.png"),
-                  //color: Colors.blue,
-                  height: 50,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _signUpButton() {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -201,7 +163,15 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 20,
                   color: Colors.black,
                 )),
-            onPressed: () => print('_signUpButton pressed'),
+            onPressed: () => {
+              setState(() => {global.myLoginMethod = 'Email'}),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignUpPage(),
+                ),
+              ),
+            },
           ),
         ],
       ),

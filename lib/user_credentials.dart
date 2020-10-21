@@ -6,6 +6,7 @@ import 'package:japaneseapp/email_sign_in.dart';
 // include own flutter code files
 import 'package:japaneseapp/global.dart' as global;
 import 'package:japaneseapp/kanji.dart';
+import 'package:japaneseapp/show_dialog.dart';
 
 class UserCredentials extends StatefulWidget {
   UserCredentials();
@@ -23,11 +24,7 @@ class _UserCredentials extends State<UserCredentials> {
     emailSignInService.signInWithEmail(_inputUser, _inputPW).then(
       (result) {
         if (result != null) {
-          setState(
-            () {
-              global.myLoginMethod = 'Email';
-            },
-          );
+          setState(() => {global.myLoginMethod = 'Email'});
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -35,10 +32,13 @@ class _UserCredentials extends State<UserCredentials> {
             ),
           );
         } else {
-          print('Google sign-in failed');
-          return Container(
-            child: new Text('Google sign-in failed'),
-          );
+          if (global.myErrorMessage == null) {
+            return showMyDialog(context, 'Email sign-in',
+                'Error: sign-in failed', 'please try again');
+          } else {
+            return showMyDialog(context, 'Email sign-in',
+                'Error: sign-in failed', global.myErrorMessage);
+          }
         }
       },
     );

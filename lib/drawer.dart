@@ -10,6 +10,7 @@ import 'package:japaneseapp/dictionary.dart';
 import 'package:japaneseapp/phrases.dart';
 import 'package:japaneseapp/global.dart' as global;
 import 'package:japaneseapp/login_page.dart';
+import 'package:japaneseapp/profile.dart';
 
 Widget showMenuDrawer(BuildContext context) {
   return Drawer(
@@ -113,7 +114,12 @@ Widget showMenuDrawer(BuildContext context) {
           leading: Icon(Icons.account_box),
           title: Text('Profile/Account'),
           onTap: () {
-            print('Profile is under construction');
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Profile(),
+              ),
+            );
           },
         ),
         Divider(
@@ -145,18 +151,18 @@ Widget showMenuDrawer(BuildContext context) {
                 }
               case "Email":
                 {
-                  emailSignInService.signOutEmail().then((result) {
-                    if (result == null) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginPage(),
-                        ),
-                      );
-                    } else {
-                      print('Exit Email: Error $result');
-                    }
-                  });
+                  emailSignInService.signOutEmail().then(
+                    (result) {
+                      if (result == null) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                      }
+                    },
+                  );
                   break;
                 }
                 break;
