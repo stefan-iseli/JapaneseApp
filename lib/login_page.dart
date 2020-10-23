@@ -1,6 +1,5 @@
 // import flutter packages (pub.dev for a list of available extensions)
 import 'package:flutter/material.dart';
-import 'package:japaneseapp/kanji.dart';
 
 // own flutter code files to be inclueded
 import 'package:japaneseapp/google_sign_in.dart';
@@ -8,6 +7,7 @@ import 'package:japaneseapp/user_credentials.dart';
 import 'package:japaneseapp/global.dart' as global;
 import 'package:japaneseapp/show_dialog.dart';
 import 'package:japaneseapp/sign_up.dart';
+import 'package:japaneseapp/kanji.dart';
 
 class LoginPage extends StatefulWidget {
   @override

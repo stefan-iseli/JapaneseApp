@@ -8,6 +8,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:japaneseapp/drawer.dart';
 import 'package:japaneseapp/kanji_samples.dart';
 import 'package:japaneseapp/tts.dart';
+import 'package:japaneseapp/global.dart' as global;
 
 class Kanji extends StatefulWidget {
   @override
@@ -15,8 +16,6 @@ class Kanji extends StatefulWidget {
 }
 
 class _KanjiState extends State<Kanji> {
-  bool _myFiltered = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +27,15 @@ class _KanjiState extends State<Kanji> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            icon: (_myFiltered)
+            icon: (global.myFiltered)
                 ? Icon(Icons.filter_list)
                 : Icon(Icons.filter_none),
             iconSize: 30.0,
             color: Colors.yellow,
             onPressed: () => {
-              setState(() =>
-                  (_myFiltered) ? _myFiltered = false : _myFiltered = true),
+              setState(() => (global.myFiltered)
+                  ? global.myFiltered = false
+                  : global.myFiltered = true),
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -49,7 +49,7 @@ class _KanjiState extends State<Kanji> {
       drawer: showMenuDrawer(context),
       body: Container(
         child: StreamBuilder(
-          stream: (_myFiltered)
+          stream: (global.myFiltered)
               ? FirebaseFirestore.instance
                   .collection('myJapaneseWords')
                   .orderBy('No', descending: false)

@@ -48,16 +48,6 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-//        appBar: AppBar(
-//          title: new Text(
-//            "ステファンの日本語",
-//            style: TextStyle(
-//              fontSize: 20,
-//              color: Colors.white,
-//            ),
-//          ),
-//          centerTitle: true,
-//        ),
         body: FutureBuilder(
           future: _initialization,
           builder: (context, snapshot) {

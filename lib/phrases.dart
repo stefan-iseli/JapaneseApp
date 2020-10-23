@@ -6,6 +6,7 @@ import 'package:flip_card/flip_card.dart';
 //importing own library
 import 'package:japaneseapp/drawer.dart';
 import 'package:japaneseapp/tts.dart';
+import 'package:japaneseapp/global.dart' as global;
 
 class Phrases extends StatefulWidget {
   Phrases();
@@ -14,8 +15,6 @@ class Phrases extends StatefulWidget {
 }
 
 class _PhrasesState extends State<Phrases> {
-  bool _myFiltered = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +29,15 @@ class _PhrasesState extends State<Phrases> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-            icon: (_myFiltered)
+            icon: (global.myFiltered)
                 ? Icon(Icons.filter_list)
                 : Icon(Icons.filter_none),
             iconSize: 30.0,
             color: Colors.yellow,
             onPressed: () => {
-              setState(() =>
-                  (_myFiltered) ? _myFiltered = false : _myFiltered = true),
+              setState(() => (global.myFiltered)
+                  ? global.myFiltered = false
+                  : global.myFiltered = true),
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -51,7 +51,7 @@ class _PhrasesState extends State<Phrases> {
       drawer: showMenuDrawer(context),
       body: Container(
         child: StreamBuilder(
-          stream: (_myFiltered)
+          stream: (global.myFiltered)
               ? FirebaseFirestore.instance
                   .collection('myPhrases')
                   .orderBy('No', descending: false)
